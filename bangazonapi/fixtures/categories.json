@@ -1,0 +1,30 @@
+[
+  {
+    "model": "bangazonapi.category",
+    "pk": 1,
+    "fields": {
+      "label": "Electronics"
+    }
+  },
+  {
+    "model": "bangazonapi.category",
+    "pk": 2,
+    "fields": {
+      "label": "Books"
+    }
+  },
+  {
+    "model": "bangazonapi.category",
+    "pk": 3,
+    "fields": {
+      "label": "Games"
+    }
+  },
+  {
+    "model": "bangazonapi.category",
+    "pk": 4,
+    "fields": {
+      "label": "Misc"
+    }
+  }
+]

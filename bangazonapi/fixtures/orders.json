@@ -1,0 +1,42 @@
+[
+  {
+    "model": "bangazonapi.order",
+    "pk": 1,
+    "fields": {
+        "customer": 1,
+        "completed": false,
+        "total": 110.54,
+        "payment_type": "credit"
+    }
+  },
+  {
+    "model": "bangazonapi.order",
+    "pk": 2,
+    "fields": {
+        "customer": 1,
+        "completed": false,
+        "total": 57.69,
+        "payment_type": "credit"
+    }
+  },
+  {
+    "model": "bangazonapi.order",
+    "pk": 3,
+    "fields": {
+        "customer": 3,
+        "completed": true,
+        "total": 25.00,
+        "payment_type": "points"
+    }
+  },
+  {
+    "model": "bangazonapi.order",
+    "pk": 4,
+    "fields": {
+        "customer": 2,
+        "completed": false,
+        "total": 11.11,
+        "payment_type": "points"
+    }
+  }
+]
