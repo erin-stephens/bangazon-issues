@@ -1,0 +1,54 @@
+[
+  {
+    "model": "bangazonapi.product",
+    "pk": 1,
+    "fields": {
+        "title": "Item 1",
+        "description": "This is item 1",
+        "quantity": 10,
+        "price": 5.00,
+        "category": 1,
+        "seller": 1,
+        "image_url": "http://dummyimage.com/159x100.png/cc0000/ffffff"
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 2,
+    "fields": {
+        "title": "Item 2",
+        "description": "This is item 2",
+        "quantity": 6,
+        "price": 7.00,
+        "category": 2,
+        "seller": 1,
+        "image_url": "http://dummyimage.com/159x100.png/cc0000/ffffff"
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 3,
+    "fields": {
+        "title": "Item 3",
+        "description": "This is item 3",
+        "quantity": 4,
+        "price": 20.00,
+        "category": 3,
+        "seller": 2,
+        "image_url": "http://dummyimage.com/159x100.png/cc0000/ffffff"
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 4,
+    "fields": {
+        "title": "Item 4",
+        "description": "This is item 4",
+        "quantity": 3,
+        "price": 6.99,
+        "category": 1,
+        "seller": 2,
+        "image_url": "http://dummyimage.com/159x100.png/cc0000/ffffff"
+    }
+  }
+]

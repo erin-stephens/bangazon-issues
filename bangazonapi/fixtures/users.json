@@ -1,0 +1,50 @@
+[
+  {
+    "model": "bangazonapi.user",
+    "pk": 1,
+    "fields": {
+        "uid": "ersers",
+        "email": "erebstephens@gmail.com",
+        "url": "https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg",
+        "first_name": "Erin",
+        "last_name": "Stephens",
+        "username": "erinerinerin"
+    }
+  },
+  {
+    "model": "bangazonapi.user",
+    "pk": 2,
+    "fields": {
+        "uid": "abc123",
+        "email": "blan@blan.com",
+        "url": "https://letsenhance.io/static/66c1b6abf8f7cf44c19185254d7adb0c/28ebd/AiArtBefore.jpg",
+        "first_name": "Blan",
+        "last_name": "Blands",
+        "username": "blanblanblan"
+    }
+  },
+  {
+    "model": "bangazonapi.user",
+    "pk": 3,
+    "fields": {
+        "uid": "def456",
+        "email": "fran@fran.com",
+        "url": "https://gweb-research-imagen.web.app/compositional/An%20oil%20painting%20of%20a%20British%20Shorthair%20cat%20wearing%20a%20cowboy%20hat%20and%20red%20shirt%20skateboarding%20on%20a%20beach./1_.jpeg",
+        "first_name": "Fran",
+        "last_name": "Franz",
+        "username": "franfranfran"
+    }
+  },
+  {
+    "model": "bangazonapi.user",
+    "pk": 4,
+    "fields": {
+        "uid": "ghi789",
+        "email": "jan@jan.com",
+        "url": "https://commons.wikimedia.org/wiki/Commons:Quality_images#/media/File:Gull_portrait_ca_usa.jpg",
+        "first_name": "Jan",
+        "last_name": "Jans",
+        "username": "janjanjan"
+    }
+  }
+]
