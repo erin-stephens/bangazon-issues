@@ -3,7 +3,8 @@ from django.db.models import Count
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazonapi.models import Product, User, Category
+from bangazonapi.models import Product, User, Category, Order, OrderProduct
+from rest_framework.decorators import action
 
 class ProductView(ViewSet):
 
@@ -20,6 +21,12 @@ class ProductView(ViewSet):
         seller_products = request.query_params.get('user_id', None)
         if seller_products is not None:
             products = products.filter(user_id=seller_products)
+            
+        order = Order.objects.get(pk=request.data["orderId"])
+        
+        for product in products:
+            product.added = len(OrderProduct.objects.filter(order=order, product=product)) > 0
+            
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
     
@@ -60,9 +67,31 @@ class ProductView(ViewSet):
         product = Product.objects.get(pk=pk)
         product.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['post'], detail=True)
+    def addtocart(self, request, pk):
+        order = Order.objects.get(pk=pk)
+        product = Product.objects.get(pk=pk)
+        cart = OrderProduct.objects.create(
+            order=order,
+            product=product
+        )
+        return Response({'message': 'Product added to order'}, status=status.HTTP_201_CREATED)
+    
+    @action(methods=['delete'], detail=True)
+    def remove(self, request, pk):
+        order = Order.objects.get(pk=pk)
+        product = Product.objects.get(pk=pk)
+        order_products = OrderProduct.objects.get(
+            order_id=order.id,
+            product_id=product.id
+        )
+        order_products.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ('id', 'seller', 'category', 'title', 'description', 'quantity', 'price', 'image_url')
+        fields = ('id', 'seller', 'category', 'title', 'description', 'quantity', 'price', 'image_url', 'added')
+        depth = 1

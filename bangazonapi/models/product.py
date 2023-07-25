@@ -11,3 +11,11 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     image_url = models.CharField(max_length=300)
+    
+    @property
+    def added(self):
+        return self.__added
+    
+    @added.setter
+    def added(self, value):
+        self.___joined = value

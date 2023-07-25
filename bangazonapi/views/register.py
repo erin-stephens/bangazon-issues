@@ -31,8 +31,8 @@ def register_user(request):
     uid = request.data['uid'],
     email = request.data['email'],
     url = request.data['url'],
-    first_name = request.data['first_name'],
-    last_name = request.data['last_name'],
+    first_name = request.data['firstName'],
+    last_name = request.data['lastName'],
     username = request.data['username']
     )
   

@@ -3,7 +3,8 @@ from django.db.models import Count
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazonapi.models import Order, User
+from bangazonapi.models import Order, User, OrderProduct
+from rest_framework.decorators import action
 
 class OrderView(ViewSet):
 
@@ -47,7 +48,19 @@ class OrderView(ViewSet):
         order = Order.objects.get(pk=pk)
         order.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-
+    
+    @action(methods=['post'], detail=True)
+    def check_order(self, request, pk):
+        try:
+            order = OrderProduct.objects.get(
+                order_id = pk,
+                product_id = pk
+            )
+            serializer = OrderSerializer(order)
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response(False)
+        
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
