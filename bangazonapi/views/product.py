@@ -22,21 +22,22 @@ class ProductView(ViewSet):
         if seller_products is not None:
             products = products.filter(user_id=seller_products)
             
-        order = Order.objects.get(pk=request.data["orderId"])
+        
+        '''order = Order.objects.get(pk=request.data["orderId"])
         
         for product in products:
-            product.added = len(OrderProduct.objects.filter(order=order, product=product)) > 0
+            product.added = len(OrderProduct.objects.filter(order=order, product=product)) > 0 '''
             
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
     
     def create(self, request):
         
-        seller = User.objects.get(pk=request.data["userId"])
-        category = Category.objects.get(pk=request.data["categoryId"])
+        seller = User.objects.get(uid=request.data["userId"])
+        category = Category.objects.get(pk=request.data["category"])
         product = Product.objects.create(
-            seller_id=seller,
-            category_id=category,
+            seller=seller,
+            category=category,
             title=request.data["title"],
             description=request.data["description"],
             quantity=request.data["quantity"],
@@ -49,9 +50,9 @@ class ProductView(ViewSet):
     def update(self, request, pk):
         
         product = Product.objects.get(pk=pk)
-        seller = User.objects.get(pk=request.data["userId"])
+        seller = User.objects.get(uid=request.data["userId"])
         product.seller = seller
-        category = Category.objects.get(pk=request.data["categoryId"])
+        category = Category.objects.get(pk=request.data["category"])
         product.category=category
         product.title = request.data["title"]
         product.description = request.data["description"]
