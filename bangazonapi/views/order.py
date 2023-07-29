@@ -21,7 +21,10 @@ class OrderView(ViewSet):
         orders = Order.objects.all()
         open_order = request.query_params.get('completed', None)
         if open_order is not None:
-            open = orders.filter(completed=False)
+            orders = orders.filter(completed=open_order)
+        customer_id = request.query_params.get('customer_id', None)
+        if customer_id is not None:
+            orders = orders.filter(customer_id=customer_id)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
         
@@ -52,22 +55,21 @@ class OrderView(ViewSet):
         order.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
     
-    @action(methods=['post'], detail=True)
-    def check_order(self, request, pk):
+    @action(methods=['get'], detail=True)
+    def get_products(self, request, pk):
+        '''get an orders products'''
         try:
-            openCart = Order.objects.get(
-                id = pk,
-                completed = False
-            )
-            serializer = OrderSerializer(openCart)
+            order_products = OrderProduct.objects.filter(order_id = pk)
+            serializer = OrderProductSerializer(order_products, many=True)
             return Response(serializer.data)
-        except Order.DoesNotExist:
+        except OrderProduct.DoesNotExist:
             return Response(False)
         
 class OrderProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderProduct
-        fields = ('id', 'order_id', 'product_id')
+        fields = ('id', 'order', 'product')
+        depth = 1
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order

@@ -23,11 +23,15 @@ class ProductView(ViewSet):
             products = products.filter(user_id=seller_products)
             
         
-        '''order = Order.objects.get(pk=request.data["orderId"])
-        
-        for product in products:
-            product.added = len(OrderProduct.objects.filter(order=order, product=product)) > 0 '''
-            
+        order_id = request.query_params.get('order', None)
+        if order_id is not None:
+            try:
+                order = Order.objects.get(pk=order_id)
+                for product in products:
+                    product.added = len(OrderProduct.objects.filter(order=order, product=product)) > 0
+            except Order.DoesNotExist:
+                pass  # Handle the case when the order doesn't exist
+
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
     
@@ -71,8 +75,8 @@ class ProductView(ViewSet):
     
     @action(methods=['post'], detail=True)
     def addtocart(self, request, pk):
-        order = Order.objects.get(pk=pk)
-        product = Product.objects.get(pk=pk)
+        order = Order.objects.get(pk=request.data["orderId"])
+        product = Product.objects.get(pk=request.data["productId"])
         cart = OrderProduct.objects.create(
             order=order,
             product=product
@@ -81,8 +85,8 @@ class ProductView(ViewSet):
     
     @action(methods=['delete'], detail=True)
     def remove(self, request, pk):
-        order = Order.objects.get(pk=pk)
-        product = Product.objects.get(pk=pk)
+        order = Order.objects.get(pk=["orderId"])
+        product = Product.objects.get(pk=["productId"])
         order_products = OrderProduct.objects.get(
             order_id=order.id,
             product_id=product.id
